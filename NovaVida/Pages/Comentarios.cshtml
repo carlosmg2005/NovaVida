@@ -1,0 +1,17 @@
+﻿@model ComentariosModel
+
+<h3>Comentários</h3>
+
+@if (Model.Comentarios != null && Model.Comentarios.Count > 0)
+{
+    <ul>
+        @foreach (var comentario in Model.Comentarios)
+        {
+            <li>@comentario</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Não há comentários para este produto.</p>
+}
