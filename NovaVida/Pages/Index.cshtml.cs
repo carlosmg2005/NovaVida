@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace NovaVida.Pages
 {
@@ -43,7 +44,8 @@ namespace NovaVida.Pages
                         Preco = a.Descendants("span")
                             .FirstOrDefault(span => span.GetAttributeValue("class", "").Contains("sc-3b515ca1-2 gybgF priceCard"))
                             ?.InnerText.Trim(),
-                        ProdutoId = a.GetAttributeValue("href", "").Replace("/produto/", "")
+                        ProdutoId = Regex.Match(a.GetAttributeValue("href", ""), @"\d+").Value
+
                     })
                     .Where(resultado => resultado.Nome != null && resultado.Preco != null)
                     .ToList();
